@@ -1,10 +1,14 @@
 package com.mkg_dhbw.xcalc.ui.home;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +17,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mkg_dhbw.xcalc.R;
+import com.mkg_dhbw.xcalc.models.Currency;
+import com.mkg_dhbw.xcalc.models.LatestRates;
+import com.mkg_dhbw.xcalc.repositories.GetLatestRepositoryTask;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private Button debugButtonLatest;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +38,21 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        debugButtonLatest = root.findViewById(R.id.debug_button_latest);
+        debugButtonLatest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = getContext();
+
+                GetLatestRepositoryTask task = new GetLatestRepositoryTask();
+                task.execute(Currency.DKK);
+
+                Toast toast = Toast.makeText(context, "test", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+
         return root;
     }
 }
