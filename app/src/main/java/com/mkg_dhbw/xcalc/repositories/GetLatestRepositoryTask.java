@@ -26,6 +26,6 @@ public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestR
     protected void onPostExecute(LatestRates latestRates) {
         super.onPostExecute(latestRates);
         // do stuff in UI e.g. set TextViews...
-        Log.i("TEst", latestRates.toString());
+        Log.i("LATEST-RATES", latestRates.toString());
     }
 }
