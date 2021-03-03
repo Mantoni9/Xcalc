@@ -20,6 +20,10 @@ public class LatestRates {
         this.rates = rates;
     }
 
+    public LatestRates(List<Rate> rates) {
+        this.rates = rates;
+    }
+
     public LatestRates() {
 
     }
