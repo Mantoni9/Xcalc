@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Xcalc</string>
+    <string name="title_chart">Chart</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_history">History</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -23,4 +23,76 @@
     <string name="dialog_title_product">Produkt:</string>
     <string name="dialog_button_positive">Ändern</string>
     <string name="dialog_button_negative">Abbrechen</string>
+
+    <string-array name="currencies">
+        <item>EUR</item>
+        <item>CAD</item>
+        <item>HKD</item>
+        <item>ISK</item>
+        <item>PHP</item>
+        <item>DKK</item>
+        <item>HUF</item>
+        <item>CZK</item>
+        <item>AUD</item>
+        <item>RON</item>
+        <item>SEK</item>
+        <item>IDR</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>RUB</item>
+        <item>HRK</item>
+        <item>JPY</item>
+        <item>THB</item>
+        <item>CHF</item>
+        <item>SGD</item>
+        <item>PLN</item>
+        <item>BGN</item>
+        <item>TRY</item>
+        <item>CNY</item>
+        <item>NOK</item>
+        <item>NZD</item>
+        <item>ZAR</item>
+        <item>USD</item>
+        <item>MXN</item>
+        <item>ILS</item>
+        <item>GPB</item>
+        <item>KRW</item>
+        <item>MYR</item>
+    </string-array>
+    
+    <string-array name="currencies2">
+        <item>GPB</item>
+        <item>USD</item>
+        <item>RUB</item>
+        <item>HRK</item>
+        <item>CAD</item>
+        <item>HKD</item>
+        <item>ISK</item>
+        <item>PHP</item>
+        <item>DKK</item>
+        <item>HUF</item>
+        <item>CZK</item>
+        <item>AUD</item>
+        <item>RON</item>
+        <item>SEK</item>
+        <item>IDR</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>JPY</item>
+        <item>THB</item>
+        <item>CHF</item>
+        <item>SGD</item>
+        <item>PLN</item>
+        <item>BGN</item>
+        <item>TRY</item>
+        <item>CNY</item>
+        <item>NOK</item>
+        <item>NZD</item>
+        <item>ZAR</item>
+        <item>MXN</item>
+        <item>ILS</item>
+        <item>KRW</item>
+        <item>EUR</item>
+        <item>MYR</item>
+    </string-array>
 </resources>
