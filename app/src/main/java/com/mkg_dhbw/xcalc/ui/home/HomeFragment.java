@@ -23,12 +23,17 @@ import com.mkg_dhbw.xcalc.models.Currency;
 import com.mkg_dhbw.xcalc.models.HistoryRequest;
 import com.mkg_dhbw.xcalc.models.LatestRates;
 import com.mkg_dhbw.xcalc.models.OutputResult;
+import com.mkg_dhbw.xcalc.models.Rate;
 import com.mkg_dhbw.xcalc.models.ToConvert;
 import com.mkg_dhbw.xcalc.repositories.GetHistoryRepositoryTask;
 import com.mkg_dhbw.xcalc.repositories.GetLatestRepositoryTask;
+import com.mkg_dhbw.xcalc.repositories.InsertHistoryRequestInDatabaseTask;
+import com.mkg_dhbw.xcalc.repositories.SQLiteRepository;
 import com.mkg_dhbw.xcalc.utilities.CalculateConvertionTask;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment {
@@ -40,6 +45,7 @@ public class HomeFragment extends Fragment {
     private TextView resultText;
     private Button debugButtonLatest;
     private Button debugButtonHistory;
+    private Button debugButtonSqlite;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +101,6 @@ public class HomeFragment extends Fragment {
 
                 GetLatestRepositoryTask task = new GetLatestRepositoryTask();
                 task.execute(Currency.DKK);
-
                 Toast toast = Toast.makeText(context, "test", Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -111,6 +116,29 @@ public class HomeFragment extends Fragment {
                 task.execute(new HistoryRequest(LocalDate.parse("2021-01-01"), LocalDate.parse("2021-02-01"), Currency.EUR));
 
                 Toast toast = Toast.makeText(context, "test", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+
+        debugButtonSqlite = root.findViewById(R.id.debug_button_sqlite);
+        debugButtonSqlite.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Context context = getContext();
+
+                InsertHistoryRequestInDatabaseTask task = new InsertHistoryRequestInDatabaseTask(context);
+
+                List<Rate> list = new ArrayList<Rate>();
+                list.add(new Rate(Currency.USD, 10.0));
+                task.execute(new LatestRates(Currency.EUR, list));
+
+                //SQLiteRepository repository = new SQLiteRepository(context);
+
+                //repository.ReadEntry();
+                //repository.SaveEntry(new LatestRates(Currency.EUR, list));
+
+                Toast toast = Toast.makeText(context, "sql", Toast.LENGTH_LONG);
                 toast.show();
             }
         });
