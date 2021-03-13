@@ -22,7 +22,6 @@ public class HistoryArrayAdapter extends ArrayAdapter<RequestHistory> {
         list = objects;
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

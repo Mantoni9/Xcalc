@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,72 +27,104 @@
         android:textColor="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="EllipsizeMaxLines" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="155dp"
-        app:cardCornerRadius="10dp">
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBanner"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Wechselkurs berechnen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fremdBetrag"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:id="@+id/ll_firstConversion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+    <EditText
+        android:id="@+id/eigenBetrag"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
-                <EditText
-                    android:id="@+id/et_firstConversion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:hint="From"
-                    android:inputType="number" />
+    <EditText
+        android:id="@+id/fremdBetrag"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eigenBetrag" />
 
-                <Spinner
-                    android:id="@+id/spinner_firstConversion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/eigenWaehrung"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toEndOf="@+id/eigenBetrag"
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
-            </LinearLayout>
+    <Spinner
+        android:id="@+id/fremdWaehrung"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toEndOf="@+id/fremdBetrag"
+        app:layout_constraintTop_toBottomOf="@+id/eigenWaehrung" />
 
-            <LinearLayout
-                android:id="@+id/ll_secondConversion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+    <TextView
+        android:id="@+id/textViewForeignCurrency"
+        android:layout_width="206dp"
+        android:layout_height="32dp"
+        android:text="1,20 US-Dollar"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOwnCurrency" />
 
-                <EditText
-                    android:id="@+id/et_secondConversion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:hint="To"
-                    android:inputType="number" />
+    <TextView
+        android:id="@+id/textViewOwnCurrency"
+        android:layout_width="138dp"
+        android:layout_height="18dp"
+        android:text="1 Euro entspricht"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
 
-                <Spinner
-                    android:id="@+id/spinner_secondConversion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/disclaimer"
+        android:layout_width="302dp"
+        android:layout_height="21dp"
+        android:text="Datum, Zeit, Zeitzone - Haftungsauschluss "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewForeignCurrency" />
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
