@@ -53,8 +53,8 @@ public class HistoryFragment extends Fragment {
         HistoryArrayAdapter historyArray = new HistoryArrayAdapter(getContext(), timmsList);
         historyList.setAdapter(historyArray);
         historyList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
-            String selectedItem = (String) parent.getItemAtPosition(position);
-            final Dialog dialog = new Dialog( this.getContext());
+            RequestHistory selectedItem = (RequestHistory) parent.getItemAtPosition(position);
+            final Dialog dialog = new Dialog( getContext());
             dialog.setContentView(R.layout.dialog);
             dialog.setTitle("Details");
 
