@@ -17,6 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mkg_dhbw.xcalc.R;
 import com.mkg_dhbw.xcalc.models.CalculatedRate;
 import com.mkg_dhbw.xcalc.models.Currency;
@@ -39,6 +42,7 @@ import java.util.concurrent.ExecutionException;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private TextView textBanner;
 
     private Button calculateExchangeButton;
     private EditText exchangeAmountInput;
@@ -52,6 +56,7 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
 
         resultText = root.findViewById(R.id.result_text);
         exchangeAmountInput = root.findViewById(R.id.input_currency_value);
@@ -108,6 +113,20 @@ public class HomeFragment extends Fragment {
 
         debugButtonHistory = root.findViewById(R.id.debug_button_history);
         debugButtonHistory.setOnClickListener(new View.OnClickListener() {
+          
+        final TextView textView = root.findViewById(R.id.textBanner);
+        textView.setSelected(true);
+
+        GraphView graph = (GraphView) root.findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
+        /*homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onClick(View view) {
                 Context context = getContext();
@@ -142,6 +161,7 @@ public class HomeFragment extends Fragment {
                 toast.show();
             }
         });
+        }*//*);*/
 
         return root;
     }

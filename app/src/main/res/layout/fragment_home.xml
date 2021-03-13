@@ -6,75 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <EditText
-        android:id="@+id/input_currency_value"
-        android:layout_width="251dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Amount in Euro"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/btn_get_latest"
-        app:layout_constraintHorizontal_bias="0.5"
+    <TextView
+        android:id="@+id/textBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_textview"
+
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+
+        android:text="Hello World my Name ist Antonio Markic and i am showing qou something special today"
+        android:textColor="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="EllipsizeMaxLines" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBanner"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/btn_get_latest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/calculateButton"
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Wechselkurs berechnen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fremdBetrag"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/eigenBetrag"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Exchange"
-        app:layout_constraintBaseline_toBaselineOf="@+id/input_currency_value"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/input_currency_value" />
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
-    <Button
-        android:id="@+id/debug_button_latest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="260dp"
-        android:text="Latest"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
+    <EditText
+        android:id="@+id/fremdBetrag"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eigenBetrag" />
 
-    <Button
-        android:id="@+id/debug_button_sqlite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
-        android:text="SQLite Insert &amp; Read"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Spinner
+        android:id="@+id/eigenWaehrung"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toEndOf="@+id/eigenBetrag"
+        app:layout_constraintTop_toBottomOf="@+id/disclaimer" />
 
-    <Button
-        android:id="@+id/debug_button_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="History"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Spinner
+        android:id="@+id/fremdWaehrung"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
-        app:layout_constraintStart_toEndOf="@+id/debug_button_latest"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toEndOf="@+id/fremdBetrag"
+        app:layout_constraintTop_toBottomOf="@+id/eigenWaehrung" />
 
     <TextView
-        android:id="@+id/result_text"
-        android:layout_width="385dp"
-        android:layout_height="348dp"
-        android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/textViewForeignCurrency"
+        android:layout_width="206dp"
+        android:layout_height="32dp"
+        android:text="1,20 US-Dollar"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_currency_value"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewOwnCurrency" />
+
+    <TextView
+        android:id="@+id/textViewOwnCurrency"
+        android:layout_width="138dp"
+        android:layout_height="18dp"
+        android:text="1 Euro entspricht"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph" />
+
+    <TextView
+        android:id="@+id/disclaimer"
+        android:layout_width="302dp"
+        android:layout_height="21dp"
+        android:text="Datum, Zeit, Zeitzone - Haftungsauschluss "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewForeignCurrency" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
