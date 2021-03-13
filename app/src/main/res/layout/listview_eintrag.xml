@@ -1,0 +1,23 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!--
+         Diese Datei definiert das Layout für EINEN List-Eintrag
+         (eine Zeile im ListView-Element).
+      -->
+
+
+    <TextView
+        android:id="@+id/textview_begriff"
+        android:background="#80C0C0C0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Hey Timm"
+        android:textSize="25sp" />
+
+</RelativeLayout>
