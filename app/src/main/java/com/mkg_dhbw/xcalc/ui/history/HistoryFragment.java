@@ -1,5 +1,4 @@
 package com.mkg_dhbw.xcalc.ui.history;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,26 +12,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.mkg_dhbw.xcalc.MainActivity;
 import com.mkg_dhbw.xcalc.R;
 import com.mkg_dhbw.xcalc.models.RequestHistory;
-
+import com.mkg_dhbw.xcalc.repositories.SQLiteRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 public class HistoryFragment extends Fragment {
-
     private HistoryViewModel historyViewModel;
     private ListView historyList;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         historyViewModel =
@@ -45,11 +40,10 @@ public class HistoryFragment extends Fragment {
                 textView.setText(s);
             }
         });
-
         historyList = root.findViewById(R.id.list_history);
         List<RequestHistory> timmsList = new ArrayList<>();
-        timmsList.add(new RequestHistory(LocalDate.parse("2021-02-21"), "USD", "EUR", 1.16, 23.2, 20.0));
-
+        SQLiteRepository repository = new SQLiteRepository(getContext());
+        timmsList = repository.readEntries();
         HistoryArrayAdapter historyArray = new HistoryArrayAdapter(getContext(), timmsList);
         historyList.setAdapter(historyArray);
         historyList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
@@ -57,18 +51,16 @@ public class HistoryFragment extends Fragment {
             final Dialog dialog = new Dialog( getContext());
             dialog.setContentView(R.layout.dialog);
             dialog.setTitle("Details");
-
             TextView dateView = (TextView) dialog.findViewById(R.id.dateView);
-            dateView.setText("14.04.1997");
+            dateView.setText("" + selectedItem.getTimestamp());
             TextView baseCurrencyView = (TextView) dialog.findViewById(R.id.baseCurrencyView);
-            baseCurrencyView.setText("20 Euro");
+            baseCurrencyView.setText("" + selectedItem.getBaseAmount() + " " + selectedItem.getBaseCurrency());
             TextView foreignCurrencyView = (TextView) dialog.findViewById(R.id.foreignCurrencyView);
-            foreignCurrencyView.setText("50 Dollar");
+            foreignCurrencyView.setText("" + selectedItem.getForeignAmount() + " " + selectedItem.getForeignCurrency());
             TextView exchangeRateView = (TextView) dialog.findViewById(R.id.exchangeRateView);
-            exchangeRateView.setText("2.5");
+            exchangeRateView.setText("" + selectedItem.getExchangeRate());
             dialog.show();
         });
-
         return root;
     }
 }

@@ -1,81 +1,56 @@
 package com.mkg_dhbw.xcalc.models;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 public class RequestHistory {
-    private LocalDate datum;
-    private String foreignCurrency;
-    private String baseCurrency;
+    private LocalDateTime timestamp;
+    private Currency foreignCurrency;
+    private Currency baseCurrency;
     private double exchangeRate;
     private double foreignAmount;
     private double baseAmount;
-
-    public RequestHistory(LocalDate datum, String foreignCurrency, String baseCurrency, double exchangeRate, double foreignAmount, double baseAmount) {
-        this.datum = datum;
+    public RequestHistory(LocalDateTime timestamp, Currency foreignCurrency, Currency baseCurrency, double exchangeRate, double foreignAmount, double baseAmount) {
+        this.timestamp = timestamp;
         this.foreignCurrency = foreignCurrency;
         this.baseCurrency = baseCurrency;
         this.exchangeRate = exchangeRate;
         this.foreignAmount = foreignAmount;
         this.baseAmount = baseAmount;
     }
-
-    public LocalDate getDatum() {
-        return datum;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
-
-    public void setDatum(LocalDate datum) {
-        this.datum = datum;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
-
-    public String getForeignCurrency() {
+    public Currency getForeignCurrency() {
         return foreignCurrency;
     }
-
-    public void setForeignCurrency(String foreignCurrency) {
+    public void setForeignCurrency(Currency foreignCurrency) {
         this.foreignCurrency = foreignCurrency;
     }
-
-    public String getBaseCurrency() {
+    public Currency getBaseCurrency() {
         return baseCurrency;
     }
-
-    public void setBaseCurrency(String baseCurrency) {
+    public void setBaseCurrency(Currency baseCurrency) {
         this.baseCurrency = baseCurrency;
     }
-
     public double getExchangeRate() {
         return exchangeRate;
     }
-
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
-
     public double getForeignAmount() {
         return foreignAmount;
     }
-
     public void setForeignAmount(double foreignAmount) {
         this.foreignAmount = foreignAmount;
     }
-
     public double getBaseAmount() {
         return baseAmount;
     }
-
     public void setBaseAmount(double baseAmount) {
         this.baseAmount = baseAmount;
-    }
-
-    @Override
-    public String toString() {
-        return "RequestHistory{" +
-                "datum=" + datum +
-                ", foreignCurrency='" + foreignCurrency + '\'' +
-                ", baseCurrency='" + baseCurrency + '\'' +
-                ", exchangeRate=" + exchangeRate +
-                ", foreignAmount=" + foreignAmount +
-                ", baseAmount=" + baseAmount +
-                '}';
     }
 }
