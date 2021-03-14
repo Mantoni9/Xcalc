@@ -14,7 +14,7 @@ public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestR
         LatestRates rates = new LatestRates();
 
         try {
-            rates = repo.getLatestRates(Currency.EUR);
+            rates = repo.getLatestRates(currencies[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }

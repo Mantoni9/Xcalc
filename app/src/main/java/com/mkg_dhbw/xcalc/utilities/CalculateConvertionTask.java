@@ -9,6 +9,6 @@ public class CalculateConvertionTask extends AsyncTask<ToConvert, String, Output
 
     @Override
     protected OutputResult doInBackground(ToConvert... toConverts) {
-        return CurrencyConverter.Convert(toConverts[0]);
+        return CurrencyConverter.ConvertToCurrency(toConverts[0]);
     }
 }

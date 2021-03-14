@@ -19,7 +19,7 @@ public class ApiRepository {
     String baseUrl = "https://api.exchangeratesapi.io";
 
     public LatestRates getLatestRates(Currency baseCurrency) throws Exception {
-        URL url = new URL(String.format("%s/latest", baseUrl));
+        URL url = new URL(String.format("%s/latest?base=%s", baseUrl, baseCurrency.toString()));
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

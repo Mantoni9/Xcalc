@@ -4,10 +4,12 @@ public class ToConvert {
 
     private LatestRates latestRates;
     private double amount;
+    private Currency foreignCurrency;
 
-    public ToConvert(LatestRates latestRates, double amount) {
+    public ToConvert(LatestRates latestRates, double amount, Currency foreignCurrency) {
         this.latestRates = latestRates;
         this.amount = amount;
+        this.foreignCurrency = foreignCurrency;
     }
 
     public LatestRates getLatestRates() {
@@ -24,5 +26,13 @@ public class ToConvert {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Currency getForeignCurrency() {
+        return foreignCurrency;
+    }
+
+    public void setForeignCurrency(Currency foreignCurrency) {
+        this.foreignCurrency = foreignCurrency;
     }
 }

@@ -1,13 +1,22 @@
 package com.mkg_dhbw.xcalc.models;
 
+import java.time.LocalDate;
+
 public class Rate {
 
     private Currency currency;
     private double amount;
+    private LocalDate date;
 
     public Rate(Currency currency, double amount) {
         this.currency = currency;
         this.amount = amount;
+    }
+
+    public Rate(Currency currency, double amount, LocalDate date) {
+        this.currency = currency;
+        this.amount = amount;
+        this.date = date;
     }
 
     public Currency getCurrency() {
@@ -24,6 +33,14 @@ public class Rate {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     @Override

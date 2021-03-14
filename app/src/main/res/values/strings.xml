@@ -55,13 +55,13 @@
         <item>USD</item>
         <item>MXN</item>
         <item>ILS</item>
-        <item>GPB</item>
+        <item>GBP</item>
         <item>KRW</item>
         <item>MYR</item>
     </string-array>
     
     <string-array name="currencies2">
-        <item>GPB</item>
+        <item>GBP</item>
         <item>USD</item>
         <item>RUB</item>
         <item>HRK</item>

@@ -3,24 +3,37 @@ package com.mkg_dhbw.xcalc.models;
 import java.util.List;
 
 public class OutputResult {
-    private List<CalculatedRate> calculatedRates;
+    private Currency foreignCurrency;
+    private double foreignAmount;
+    private double exchangeRate;
 
-    public OutputResult(List<CalculatedRate> calculatedRates) {
-        this.calculatedRates = calculatedRates;
+    public OutputResult(Currency foreignCurrency, double foreignAmount, double exchangeRate) {
+        this.foreignCurrency = foreignCurrency;
+        this.foreignAmount = foreignAmount;
+        this.exchangeRate = exchangeRate;
     }
 
-    public List<CalculatedRate> getCalculatedRates() {
-        return calculatedRates;
+    public Currency getForeignCurrency() {
+        return foreignCurrency;
     }
 
-    public void setCalculatedRates(List<CalculatedRate> calculatedRates) {
-        this.calculatedRates = calculatedRates;
+    public void setForeignCurrency(Currency foreignCurrency) {
+        this.foreignCurrency = foreignCurrency;
     }
 
-    @Override
-    public String toString() {
-        return "OutputResult{" +
-                "calculatedRates=" + calculatedRates +
-                '}';
+    public double getForeignAmount() {
+        return foreignAmount;
+    }
+
+    public void setForeignAmount(double foreignAmount) {
+        this.foreignAmount = foreignAmount;
+    }
+
+    public double getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(double exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 }
