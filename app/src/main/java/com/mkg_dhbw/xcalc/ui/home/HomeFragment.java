@@ -77,8 +77,12 @@ public class HomeFragment extends Fragment {
 
         // Exchange Graph
         // TODO: Achsen richtig beschriften
+        LineGraphSeries<DataPoint> chartData = getChartData(Currency.EUR, Currency.USD);
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
-        graph.addSeries(getChartData(Currency.EUR, Currency.USD));
+        if (chartData != null) {
+            graph.addSeries(chartData);
+        }
+
 
         // Information text
         textViewOwnCurrency = root.findViewById(R.id.textViewOwnCurrency);
@@ -222,9 +226,12 @@ public class HomeFragment extends Fragment {
         LatestRates latestRates = getLatestRates(baseCurrency);
 
         String output = "";
-        for (Rate rate :
-                latestRates.getRates()) {
-            output += "" + rate.getCurrency().toString() + " " + rate.getAmount() + "   ";
+
+        if (latestRates != null) {
+            for (Rate rate :
+                    latestRates.getRates()) {
+                output += "" + rate.getCurrency().toString() + " " + rate.getAmount() + "   ";
+            }
         }
 
         return output;
@@ -253,6 +260,9 @@ public class HomeFragment extends Fragment {
 
         // Get Currency rates
         List<Rate> historyRatesOfBaseCurrency = new ArrayList<>();
+
+        if (history == null)
+            return series;
 
         // loop through all Rates of Date
         for (HistoryRates hRates : history.getRates()) {

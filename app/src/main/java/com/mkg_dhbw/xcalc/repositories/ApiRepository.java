@@ -15,7 +15,6 @@ import java.net.URL;
 import java.time.LocalDate;
 
 public class ApiRepository {
-
     String baseUrl = "https://api.exchangeratesapi.io";
 
     public LatestRates getLatestRates(Currency baseCurrency) throws Exception {
@@ -23,20 +22,22 @@ public class ApiRepository {
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        Log.i("LATEST-RATES", "Response Code von HTTP-Request: " + connection.getResponseCode() + " - " + connection.getResponseMessage() );
+        Log.i("LATEST-RATES", "Response Code von HTTP-Request: " + connection.getResponseCode() + " - " + connection.getResponseMessage());
 
-        InputStream is = connection.getInputStream();
-        InputStreamReader ris = new InputStreamReader(is);
-        BufferedReader reader = new BufferedReader(ris);
-        StringBuilder resultJSON = new StringBuilder();
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            InputStream is = connection.getInputStream();
+            InputStreamReader ris = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(ris);
+            StringBuilder resultJSON = new StringBuilder();
 
-        String line = "";
-        while ( (line = reader.readLine()) != null) {
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                resultJSON.append(line);
+            }
 
-            resultJSON.append(line);
+            return LatestRates.decodeJSON(resultJSON.toString());
         }
-
-        return LatestRates.decodeJSON(resultJSON.toString());
+        return null;
     }
 
     public History getHistory(LocalDate startDate, LocalDate endDate, Currency baseCurrency) throws Exception {
@@ -44,23 +45,22 @@ public class ApiRepository {
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        Log.i("HISTORY-RATES", "Response Code von HTTP-Request: " + connection.getResponseCode() + " - " + connection.getResponseMessage() );
+        Log.i("HISTORY-RATES", "Response Code von HTTP-Request: " + connection.getResponseCode() + " - " + connection.getResponseMessage());
 
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            InputStream is = connection.getInputStream();
+            InputStreamReader ris = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(ris);
+            StringBuilder resultJSON = new StringBuilder();
 
-        InputStream is = connection.getInputStream();
-        InputStreamReader ris = new InputStreamReader(is);
-        BufferedReader reader = new BufferedReader(ris);
-        StringBuilder resultJSON = new StringBuilder();
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                resultJSON.append(line);
+            }
 
-        String line = "";
-        while ( (line = reader.readLine()) != null) {
-
-            resultJSON.append(line);
+            Log.i("HISTORY-RATES", "" + resultJSON.toString());
+            return History.decodeJSON(resultJSON.toString());
         }
-
-        Log.i("HISTORY-RATES", "" + resultJSON.toString());
-
-        return History.decodeJSON(resultJSON.toString());
+        return null;
     }
-
 }
