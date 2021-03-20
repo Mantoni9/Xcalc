@@ -1,5 +1,7 @@
 package com.mkg_dhbw.xcalc.ui.home;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -105,7 +107,7 @@ public class HomeFragment extends Fragment {
                 Currency foreignCurrency = Currency.valueOf((String) fremdWaehrung.getSelectedItem());
                 if (foreignCurrency.equals(selectedCurrency))
                 {
-                    showErrorMessage("Please use different currencies!");
+                    showWarningMessage("Please use different currencies!");
                     return;
                 }
 
@@ -133,7 +135,7 @@ public class HomeFragment extends Fragment {
 
                 Currency baseCurrency = Currency.valueOf((String) eigenWaehrung.getSelectedItem());
                 if (selectedCurrency.equals(baseCurrency)) {
-                    showErrorMessage("Please use different currencies!");
+                    showWarningMessage("Please use different currencies!");
                     return;
                 }
 
@@ -158,7 +160,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if (eigenBetrag.getText().length() == 0) {
-                    showErrorMessage("Amount must be greater than 0!");
+                    showWarningMessage("Betrag muss > 0 sein!");
                     return;
                 }
 
@@ -167,7 +169,7 @@ public class HomeFragment extends Fragment {
                 Currency toWaehrung = Currency.valueOf(fremdWaehrung.getSelectedItem().toString());
 
                 if (waehrung.equals(toWaehrung)) {
-                    showErrorMessage("Please use different currencies!");
+                    showErrorMessage("Warnung","Ausgangs- und Zielwährung sind identisch!");
                     return;
                 }
 
@@ -296,8 +298,17 @@ public class HomeFragment extends Fragment {
                 .toInstant());
     }
 
-    public void showErrorMessage(String text) {
+    public void showWarningMessage(String text) {
         Toast.makeText(getActivity(), text,
                 Toast.LENGTH_LONG).show();
+    }
+
+    public void showErrorMessage(String title, String message) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setMessage(message);
+        dialogBuilder.setPositiveButton("Accept", null);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
     }
 }
