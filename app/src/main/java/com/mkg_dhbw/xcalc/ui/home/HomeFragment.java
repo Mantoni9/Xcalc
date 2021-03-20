@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
                 Currency foreignCurrency = Currency.valueOf((String) fremdWaehrung.getSelectedItem());
                 if (foreignCurrency.equals(selectedCurrency))
                 {
-                    // TODO: Fehlermeldung
+                    showErrorMessage("Please use different currencies!");
                     return;
                 }
 
@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
 
                 Currency baseCurrency = Currency.valueOf((String) eigenWaehrung.getSelectedItem());
                 if (selectedCurrency.equals(baseCurrency)) {
-                    // TODO: Fehlermeldung
+                    showErrorMessage("Please use different currencies!");
                     return;
                 }
 
@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if (eigenBetrag.getText().length() == 0) {
-                    // TODO: Fehlermeldung
+                    showErrorMessage("Amount must be greater than 0!");
                     return;
                 }
 
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
                 Currency toWaehrung = Currency.valueOf(fremdWaehrung.getSelectedItem().toString());
 
                 if (waehrung.equals(toWaehrung)) {
-                    // TODO: Dialog anzeigen mit Fehlermeldung
+                    showErrorMessage("Please use different currencies!");
                     return;
                 }
 
@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment {
                 fremdBetrag.setText("" + outputResult.getForeignAmount());
                 textViewOwnCurrency.setText("" + betrag + " " + waehrung.toString() + " entspricht");
                 textViewForeignCurrency.setText("" + outputResult.getForeignAmount() + " " + toWaehrung.toString());
-                textViewDisclaimer.setText("" + LocalDateTime.now().format(formatter) + ", Hauftungsausschluss");
+                textViewDisclaimer.setText("" + LocalDateTime.now().format(formatter) + ", Haftungsausschluss");
             }
         });
 
@@ -294,5 +294,10 @@ public class HomeFragment extends Fragment {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
+    }
+
+    public void showErrorMessage(String text) {
+        Toast.makeText(getActivity(), text,
+                Toast.LENGTH_LONG).show();
     }
 }
