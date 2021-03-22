@@ -19,8 +19,7 @@ public class GetHistoryRepositoryTask extends AsyncTask<HistoryRequest, String, 
         try {
             history = repo.getHistory(historyRequest.getStartDate(), historyRequest.getEndDate(), historyRequest.getBaseCurrency());
         } catch (Exception e) {
-            // TODO: Keine Internetverbindung handeln (hier fliegt die exception)
-            // TODO: ein einfacher Log.w() reicht
+            Log.w("HISTORY-RATES", "Something went wrong while fetching History Rates from the API");
             e.printStackTrace();
         }
         return history;
@@ -29,7 +28,5 @@ public class GetHistoryRepositoryTask extends AsyncTask<HistoryRequest, String, 
     @Override
     protected void onPostExecute(History history) {
         super.onPostExecute(history);
-        // do stuff in UI e.g. set TextViews...
-        //Log.i("HISTORY-RATES", history.toString());
     }
 }

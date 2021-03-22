@@ -14,8 +14,7 @@ public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestR
         try {
             rates = repo.getLatestRates(currencies[0]);
         } catch (Exception e) {
-            // TODO: Keine Internetverbindung handeln
-            // TODO: ein einfacher Log.w() reicht
+            Log.w("HISTORY-RATES", "Something went wrong while fetching History Rates from the API");
             e.printStackTrace();
         }
         return rates;
@@ -24,7 +23,5 @@ public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestR
     @Override
     protected void onPostExecute(LatestRates latestRates) {
         super.onPostExecute(latestRates);
-        // do stuff in UI e.g. set TextViews...
-        //Log.i("LATEST-RATES", latestRates.toString());
     }
 }
