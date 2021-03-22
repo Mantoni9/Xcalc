@@ -15,7 +15,7 @@ public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestR
             rates = repo.getLatestRates(currencies[0]);
         } catch (Exception e) {
             // TODO: Keine Internetverbindung handeln
-            Log.i("TEST", "kein internet");
+            // TODO: ein einfacher Log.w() reicht
             e.printStackTrace();
         }
         return rates;

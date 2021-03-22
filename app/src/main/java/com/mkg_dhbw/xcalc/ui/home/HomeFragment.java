@@ -5,6 +5,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -176,6 +177,11 @@ public class HomeFragment extends Fragment {
                 // basis Waehrung -> api request
                 LatestRates latestRates = getLatestRates(waehrung);
 
+                if (latestRates == null) {
+                    showErrorMessage("Internet not found", "kein Internet");
+                    return;
+                }
+
                 CalculateConvertionTask calculateConvertionTask = new CalculateConvertionTask();
                 OutputResult outputResult = null;
                 try {
@@ -215,10 +221,8 @@ public class HomeFragment extends Fragment {
         LatestRates latestRates = null;
         try {
             latestRates = getLatestRepositoryTask.execute(baseCurrency).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.w("LATEST-RATES", "Beim Abrufen des Latest API Endpoints ist ein Fehler aufgetreten!");
         }
 
         return latestRates;
@@ -252,10 +256,8 @@ public class HomeFragment extends Fragment {
 
         try {
             history = getHistoryRepositoryTask.execute(historyRequest).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.w("HISTORY-RATES", "Beim Abrufen des History API Endpoints ist ein Fehler aufgetreten!");
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();

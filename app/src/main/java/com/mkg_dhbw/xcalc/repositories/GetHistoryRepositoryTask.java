@@ -20,6 +20,7 @@ public class GetHistoryRepositoryTask extends AsyncTask<HistoryRequest, String, 
             history = repo.getHistory(historyRequest.getStartDate(), historyRequest.getEndDate(), historyRequest.getBaseCurrency());
         } catch (Exception e) {
             // TODO: Keine Internetverbindung handeln (hier fliegt die exception)
+            // TODO: ein einfacher Log.w() reicht
             e.printStackTrace();
         }
         return history;
@@ -29,7 +30,6 @@ public class GetHistoryRepositoryTask extends AsyncTask<HistoryRequest, String, 
     protected void onPostExecute(History history) {
         super.onPostExecute(history);
         // do stuff in UI e.g. set TextViews...
-        // TODO: no Internet (hier könnte man auf null checken -> Alert)
         //Log.i("HISTORY-RATES", history.toString());
     }
 }

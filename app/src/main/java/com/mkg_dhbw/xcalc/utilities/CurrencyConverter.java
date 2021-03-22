@@ -12,19 +12,6 @@ import java.util.Optional;
 
 public class CurrencyConverter {
 
-    /*public static OutputResult Convert(ToConvert toConvert){
-
-        List<CalculatedRate> convertedRates = new ArrayList<CalculatedRate>();
-        for (Rate rate : toConvert.getLatestRates().getRates()) {
-            double multiplicator = rate.getAmount();
-
-            double newAmount = multiplicator * toConvert.getAmount();
-            convertedRates.add(new CalculatedRate(rate.getCurrency(), toConvert.getAmount(), newAmount));
-        }
-
-        return new OutputResult(convertedRates);
-    }*/
-
     public static OutputResult ConvertToCurrency(ToConvert convert) {
         // get currency to convert to
         Currency foreignCurrency = convert.getForeignCurrency();
