@@ -1,8 +1,11 @@
 package com.mkg_dhbw.xcalc.ui.home;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +80,12 @@ public class HomeFragment extends Fragment {
 
         // Exchange Graph
         // TODO: Achsen richtig beschriften
+        LineGraphSeries<DataPoint> chartData = getChartData(Currency.EUR, Currency.USD);
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
-        graph.addSeries(getChartData(Currency.EUR, Currency.USD));
+        if (chartData != null) {
+            graph.addSeries(chartData);
+        }
+
 
         // Information text
         textViewOwnCurrency = root.findViewById(R.id.textViewOwnCurrency);
@@ -101,7 +108,7 @@ public class HomeFragment extends Fragment {
                 Currency foreignCurrency = Currency.valueOf((String) fremdWaehrung.getSelectedItem());
                 if (foreignCurrency.equals(selectedCurrency))
                 {
-                    // TODO: Fehlermeldung
+                    showWarningMessage("Please use different currencies!");
                     return;
                 }
 
@@ -129,7 +136,7 @@ public class HomeFragment extends Fragment {
 
                 Currency baseCurrency = Currency.valueOf((String) eigenWaehrung.getSelectedItem());
                 if (selectedCurrency.equals(baseCurrency)) {
-                    // TODO: Fehlermeldung
+                    showWarningMessage("Please use different currencies!");
                     return;
                 }
 
@@ -154,7 +161,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if (eigenBetrag.getText().length() == 0) {
-                    // TODO: Fehlermeldung
+                    showWarningMessage("Betrag muss > 0 sein!");
                     return;
                 }
 
@@ -163,12 +170,17 @@ public class HomeFragment extends Fragment {
                 Currency toWaehrung = Currency.valueOf(fremdWaehrung.getSelectedItem().toString());
 
                 if (waehrung.equals(toWaehrung)) {
-                    // TODO: Dialog anzeigen mit Fehlermeldung
+                    showErrorMessage("Warnung","Ausgangs- und Zielwährung sind identisch!");
                     return;
                 }
 
                 // basis Waehrung -> api request
                 LatestRates latestRates = getLatestRates(waehrung);
+
+                if (latestRates == null) {
+                    showErrorMessage("Internet not found", "kein Internet");
+                    return;
+                }
 
                 CalculateConvertionTask calculateConvertionTask = new CalculateConvertionTask();
                 OutputResult outputResult = null;
@@ -196,7 +208,7 @@ public class HomeFragment extends Fragment {
                 fremdBetrag.setText("" + outputResult.getForeignAmount());
                 textViewOwnCurrency.setText("" + betrag + " " + waehrung.toString() + " entspricht");
                 textViewForeignCurrency.setText("" + outputResult.getForeignAmount() + " " + toWaehrung.toString());
-                textViewDisclaimer.setText("" + LocalDateTime.now().format(formatter) + ", Hauftungsausschluss");
+                textViewDisclaimer.setText("" + LocalDateTime.now().format(formatter) + ", Haftungsausschluss");
             }
         });
 
@@ -209,10 +221,8 @@ public class HomeFragment extends Fragment {
         LatestRates latestRates = null;
         try {
             latestRates = getLatestRepositoryTask.execute(baseCurrency).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.w("LATEST-RATES", "Beim Abrufen des Latest API Endpoints ist ein Fehler aufgetreten!");
         }
 
         return latestRates;
@@ -222,9 +232,12 @@ public class HomeFragment extends Fragment {
         LatestRates latestRates = getLatestRates(baseCurrency);
 
         String output = "";
-        for (Rate rate :
-                latestRates.getRates()) {
-            output += "" + rate.getCurrency().toString() + " " + rate.getAmount() + "   ";
+
+        if (latestRates != null) {
+            for (Rate rate :
+                    latestRates.getRates()) {
+                output += "" + rate.getCurrency().toString() + " " + rate.getAmount() + "   ";
+            }
         }
 
         return output;
@@ -243,16 +256,17 @@ public class HomeFragment extends Fragment {
 
         try {
             history = getHistoryRepositoryTask.execute(historyRequest).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            Log.w("HISTORY-RATES", "Beim Abrufen des History API Endpoints ist ein Fehler aufgetreten!");
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
 
         // Get Currency rates
         List<Rate> historyRatesOfBaseCurrency = new ArrayList<>();
+
+        if (history == null)
+            return series;
 
         // loop through all Rates of Date
         for (HistoryRates hRates : history.getRates()) {
@@ -284,5 +298,19 @@ public class HomeFragment extends Fragment {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
+    }
+
+    public void showWarningMessage(String text) {
+        Toast.makeText(getActivity(), text,
+                Toast.LENGTH_LONG).show();
+    }
+
+    public void showErrorMessage(String title, String message) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(title);
+        dialogBuilder.setMessage(message);
+        dialogBuilder.setPositiveButton("Accept", null);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
     }
 }
