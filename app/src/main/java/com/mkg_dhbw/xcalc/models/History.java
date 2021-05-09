@@ -37,8 +37,8 @@ public class History {
         // Base
         String baseCurrency = jsonObject.getString("base");
         // Start & End Date
-        String startAt = jsonObject.getString("start_at");
-        String endAt = jsonObject.getString("end_at");
+        String startAt = jsonObject.getString("start_date");
+        String endAt = jsonObject.getString("end_date");
         LocalDate startAtDate = LocalDate.parse(startAt);
         LocalDate endAtDate = LocalDate.parse(endAt);
 

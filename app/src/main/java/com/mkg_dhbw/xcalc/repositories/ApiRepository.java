@@ -15,7 +15,7 @@ import java.net.URL;
 import java.time.LocalDate;
 
 public class ApiRepository {
-    String baseUrl = "https://api.exchangeratesapi.io";
+    String baseUrl = "https://api.frankfurter.app";
 
     public LatestRates getLatestRates(Currency baseCurrency) throws Exception {
         URL url = new URL(String.format("%s/latest?base=%s", baseUrl, baseCurrency.toString()));
@@ -41,7 +41,7 @@ public class ApiRepository {
     }
 
     public History getHistory(LocalDate startDate, LocalDate endDate, Currency baseCurrency) throws Exception {
-        URL url = new URL(String.format("%s/history?start_at=%s&end_at=%s&base=%s", baseUrl, startDate, endDate, baseCurrency));
+        URL url = new URL(String.format("%s/%s..%s?base=%s", baseUrl, startDate, endDate, baseCurrency));
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
