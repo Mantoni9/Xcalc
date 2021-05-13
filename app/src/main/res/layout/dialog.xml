@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
 
     <TextView
@@ -9,23 +12,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Datum: 01.04.2021"
-        android:textSize="24sp" />
+        android:textSize="22sp"/>
 
     <TextView
         android:id="@+id/baseCurrencyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ausgangswährung: 20 Euro" />
+        android:text="Ausgangswährung: 20 Euro"
+        android:textSize="22sp"
+        android:layout_below="@+id/dateView"/>
 
     <TextView
         android:id="@+id/foreignCurrencyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tauschwährung: X USD" />
+        android:text="Tauschwährung: X USD"
+        android:textSize="22sp"
+        android:layout_below="@+id/baseCurrencyView"/>
 
     <TextView
         android:id="@+id/exchangeRateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wechselkurs: 1,23 $/€" />
+        android:text="Wechselkurs: 1,23 $/€"
+        android:textSize="22sp"
+        android:layout_below="@id/foreignCurrencyView"/>
+
 </RelativeLayout>

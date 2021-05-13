@@ -3,6 +3,7 @@ package com.mkg_dhbw.xcalc.ui.home;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mkg_dhbw.xcalc.R;
@@ -66,6 +70,8 @@ public class HomeFragment extends Fragment {
     private TextView fremdBetrag;
     private Button calculateButton;
 
+    private String horizontalAxisTitle = "Zeit";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -81,10 +87,14 @@ public class HomeFragment extends Fragment {
         // Exchange Graph
         // TODO: Achsen richtig beschriften
         LineGraphSeries<DataPoint> chartData = getChartData(Currency.EUR, Currency.USD);
+        chartData.setTitle("Wechselkurs");
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
         if (chartData != null) {
             graph.addSeries(chartData);
         }
+
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setXAxisBoundsManual(true);
 
 
         // Information text
@@ -117,6 +127,7 @@ public class HomeFragment extends Fragment {
                 // Graphen
                 graph.removeAllSeries();
                 graph.addSeries(getChartData(selectedCurrency, foreignCurrency));
+
             }
 
             @Override
@@ -143,6 +154,13 @@ public class HomeFragment extends Fragment {
                 // Graph
                 graph.removeAllSeries();
                 graph.addSeries(getChartData(baseCurrency, selectedCurrency));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(5);
+                graph.getGridLabelRenderer().setNumVerticalLabels(4);
+                graph.getGridLabelRenderer().setVerticalAxisTitle(String.valueOf(selectedCurrency)+" / "+String.valueOf(baseCurrency));
+                graph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(8);
+                graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
+                graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
             }
 
             @Override
@@ -247,8 +265,8 @@ public class HomeFragment extends Fragment {
 
         GetHistoryRepositoryTask getHistoryRepositoryTask = new GetHistoryRepositoryTask();
         HistoryRequest historyRequest = new HistoryRequest(
-                LocalDate.parse("2020-07-13"),
-                LocalDate.parse("2021-03-13"),
+                LocalDate.now().minusMonths(3),
+                LocalDate.now(),
                 baseCurrency,
                 foreignCurrency);
 

@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.mkg_dhbw.xcalc.R;
 import com.mkg_dhbw.xcalc.models.RequestHistory;
+
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 public class HistoryArrayAdapter extends ArrayAdapter<RequestHistory> {
     private List<RequestHistory> list;
@@ -20,7 +22,7 @@ public class HistoryArrayAdapter extends ArrayAdapter<RequestHistory> {
         TextView nummerTextView = view.findViewById(R.id.textview_begriff);
         int nummer = position + 1;
         RequestHistory tmp = list.get(position);
-        nummerTextView.setText( tmp.getTimestamp() + "                   " + tmp.getBaseCurrency() + "  " +tmp.getBaseAmount());
+        nummerTextView.setText( tmp.getTimestamp().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")) + "                   " + tmp.getBaseCurrency() + "  " +tmp.getBaseAmount());
         return view;
     }
 }
