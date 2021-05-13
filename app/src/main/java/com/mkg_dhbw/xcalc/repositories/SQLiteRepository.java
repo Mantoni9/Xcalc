@@ -86,6 +86,7 @@ public class SQLiteRepository extends SQLiteOpenHelper {
                 HistoryRequestEntry.COLUMN_NAME_FOREIGN_AMOUNT,
                 HistoryRequestEntry.COLUMN_NAME_TIMESTAMP,
         };
+        String sortOrder = HistoryRequestEntry.COLUMN_NAME_TIMESTAMP + " DESC";
         Cursor cursor = db.query(
                 HistoryRequestEntry.TABLE_NAME,
                 projection,
@@ -93,7 +94,7 @@ public class SQLiteRepository extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null
+                sortOrder
         );
         List<RequestHistory> history = new ArrayList<>();
         while (cursor.moveToNext()){
