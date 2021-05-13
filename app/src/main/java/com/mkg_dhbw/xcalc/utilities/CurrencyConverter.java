@@ -26,6 +26,6 @@ public class CurrencyConverter {
         double foreignAmount = convert.getAmount() * rate;
 
         // return
-        return new OutputResult(foreignCurrency, foreignAmount, rate);
+        return new OutputResult(foreignCurrency, Math.round(foreignAmount*100.00)/100.00, rate);
     }
 }
