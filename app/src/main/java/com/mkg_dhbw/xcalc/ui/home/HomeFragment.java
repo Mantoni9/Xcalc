@@ -85,7 +85,6 @@ public class HomeFragment extends Fragment {
         textBanner.setText(getBannerText(Currency.EUR));
 
         // Exchange Graph
-        // TODO: Achsen richtig beschriften
         LineGraphSeries<DataPoint> chartData = getChartData(Currency.EUR, Currency.USD);
         chartData.setTitle("Wechselkurs");
         GraphView graph = (GraphView) root.findViewById(R.id.graph);
