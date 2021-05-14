@@ -1,9 +1,9 @@
 package com.mkg_dhbw.xcalc.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class RequestHistory {
+    private int dbId;
     private LocalDateTime timestamp;
     private Currency foreignCurrency;
     private Currency baseCurrency;
@@ -12,6 +12,16 @@ public class RequestHistory {
     private double baseAmount;
 
     public RequestHistory(LocalDateTime timestamp, Currency foreignCurrency, Currency baseCurrency, double exchangeRate, double foreignAmount, double baseAmount) {
+        this.timestamp = timestamp;
+        this.foreignCurrency = foreignCurrency;
+        this.baseCurrency = baseCurrency;
+        this.exchangeRate = exchangeRate;
+        this.foreignAmount = foreignAmount;
+        this.baseAmount = baseAmount;
+    }
+
+    public RequestHistory(int dbId, LocalDateTime timestamp, Currency foreignCurrency, Currency baseCurrency, double exchangeRate, double foreignAmount, double baseAmount) {
+        this.dbId = dbId;
         this.timestamp = timestamp;
         this.foreignCurrency = foreignCurrency;
         this.baseCurrency = baseCurrency;
@@ -66,5 +76,13 @@ public class RequestHistory {
 
     public void setBaseAmount(double baseAmount) {
         this.baseAmount = baseAmount;
+    }
+
+    public int getDbId() {
+        return dbId;
+    }
+
+    public void setDbId(int dbId) {
+        this.dbId = dbId;
     }
 }

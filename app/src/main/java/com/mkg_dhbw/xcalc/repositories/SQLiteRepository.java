@@ -8,14 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 import com.mkg_dhbw.xcalc.models.Currency;
-import com.mkg_dhbw.xcalc.models.LatestRates;
-import com.mkg_dhbw.xcalc.models.Rate;
 import com.mkg_dhbw.xcalc.models.RequestHistory;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 public class SQLiteRepository extends SQLiteOpenHelper {
+
     public static class HistoryRequestEntry implements BaseColumns {
         public static final String TABLE_NAME = "history";
         public static final String COLUMN_NAME_FOREIGN_CURRENCY = "foreign_currency";
@@ -25,6 +24,7 @@ public class SQLiteRepository extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_FOREIGN_AMOUNT = "foreign_amount";
         public static final String COLUMN_NAME_TIMESTAMP = "zeitstempel";
     }
+
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " +
                     HistoryRequestEntry.TABLE_NAME + " (" +
@@ -39,9 +39,11 @@ public class SQLiteRepository extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + HistoryRequestEntry.TABLE_NAME;
     public static final String DATABASE_NAME = "HistoryRequestEntries.db";
     public static final int DATABASE_VERSION = 1;
+
     public SQLiteRepository(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(SQL_CREATE_ENTRIES);
@@ -49,13 +51,16 @@ public class SQLiteRepository extends SQLiteOpenHelper {
             Log.i("SQLITE", SQL_CREATE_ENTRIES);
         }
     }
+
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
     // Save Entry to the Datbase
     public void insertEntry(RequestHistory requestHistory) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -68,12 +73,15 @@ public class SQLiteRepository extends SQLiteOpenHelper {
         values.put(HistoryRequestEntry.COLUMN_NAME_TIMESTAMP, LocalDateTime.now().toString());
         db.insert(HistoryRequestEntry.TABLE_NAME, null, values);
     }
+
+    // delete Entry
     public void deleteEntry(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = HistoryRequestEntry._ID + " = ?";
         String[] selectionArgs = { ""+id };
         int rows = db.delete(HistoryRequestEntry.TABLE_NAME, selection, selectionArgs);
     }
+
     // read entries
     public List<RequestHistory> readEntries() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -98,13 +106,14 @@ public class SQLiteRepository extends SQLiteOpenHelper {
         );
         List<RequestHistory> history = new ArrayList<>();
         while (cursor.moveToNext()){
+            int dbId = cursor.getInt(cursor.getColumnIndexOrThrow(HistoryRequestEntry._ID));
             Currency baseCurrency = Currency.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_BASE_CURRENCY)));
             Currency foreignCurrency = Currency.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_FOREIGN_CURRENCY)));
             double exchangeRate = Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_EXCHANGE_RATE)));
             double baseAmount = Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_BASE_AMOUNT)));
             double foreignAmount = Double.parseDouble(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_FOREIGN_AMOUNT)));
             LocalDateTime timestamp = LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(HistoryRequestEntry.COLUMN_NAME_TIMESTAMP)));
-            history.add(new RequestHistory(timestamp, foreignCurrency, baseCurrency, exchangeRate, foreignAmount, baseAmount));
+            history.add(new RequestHistory(dbId, timestamp, foreignCurrency, baseCurrency, exchangeRate, foreignAmount, baseAmount));
         }
         cursor.close();
         return history;
