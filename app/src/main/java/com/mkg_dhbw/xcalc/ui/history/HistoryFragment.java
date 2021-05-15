@@ -72,6 +72,8 @@ public class HistoryFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     repository.deleteEntry(id);
+                    dialog.cancel();
+                    repository.readEntries();
                 }
             });
             dialog.show();
