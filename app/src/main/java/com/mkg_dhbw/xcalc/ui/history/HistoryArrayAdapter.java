@@ -25,4 +25,8 @@ public class HistoryArrayAdapter extends ArrayAdapter<RequestHistory> {
         nummerTextView.setText( tmp.getTimestamp().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")) + "                   " + tmp.getBaseCurrency() + "  " +tmp.getBaseAmount());
         return view;
     }
+
+    public List<RequestHistory> getList() {
+        return list;
+    }
 }

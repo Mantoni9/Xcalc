@@ -75,11 +75,10 @@ public class SQLiteRepository extends SQLiteOpenHelper {
     }
 
     // delete Entry
-    public void deleteEntry(long id) {
+    public void deleteEntry(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selection = HistoryRequestEntry._ID + " = ?";
-        String[] selectionArgs = { ""+id };
-        int rows = db.delete(HistoryRequestEntry.TABLE_NAME, selection, selectionArgs);
+        int rows = db.delete(HistoryRequestEntry.TABLE_NAME, HistoryRequestEntry._ID + " = " + id, null);
+        Log.i("SQLITE", "" + rows + "; ");
     }
 
     // read entries

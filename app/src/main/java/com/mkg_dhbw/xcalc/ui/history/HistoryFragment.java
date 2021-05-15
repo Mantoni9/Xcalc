@@ -29,6 +29,7 @@ public class HistoryFragment extends Fragment {
 
     private HistoryViewModel historyViewModel;
     private ListView historyList;
+    List<RequestHistory> requestList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class HistoryFragment extends Fragment {
         historyList = root.findViewById(R.id.list_history);
         historyList.setBackgroundColor(Color.WHITE);
 
-        List<RequestHistory> requestList = new ArrayList<>();
-
         SQLiteRepository repository = new SQLiteRepository(getContext());
         requestList = repository.readEntries();
 
@@ -60,7 +59,7 @@ public class HistoryFragment extends Fragment {
             dialog.setContentView(R.layout.dialog);
             dialog.setTitle("Details");
             TextView dateView = (TextView) dialog.findViewById(R.id.dateView);
-            dateView.setText("Datum: " + selectedItem.getTimestamp().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")) + " " + selectedItem.getDbId());
+            dateView.setText("Datum: " + selectedItem.getTimestamp().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")));
             TextView baseCurrencyView = (TextView) dialog.findViewById(R.id.baseCurrencyView);
             baseCurrencyView.setText("Eigenwährung: " + selectedItem.getBaseAmount() + " " + selectedItem.getBaseCurrency());
             TextView foreignCurrencyView = (TextView) dialog.findViewById(R.id.foreignCurrencyView);
@@ -71,9 +70,13 @@ public class HistoryFragment extends Fragment {
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    repository.deleteEntry(id);
+                    repository.deleteEntry(selectedItem.getDbId());
+
+                    historyArray.getList().clear();
+                    historyArray.getList().addAll(repository.readEntries());
+                    historyArray.notifyDataSetChanged();
+
                     dialog.cancel();
-                    repository.readEntries();
                 }
             });
             dialog.show();
