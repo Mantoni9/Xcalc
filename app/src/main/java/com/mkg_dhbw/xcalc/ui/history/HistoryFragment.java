@@ -54,18 +54,26 @@ public class HistoryFragment extends Fragment {
         HistoryArrayAdapter historyArray = new HistoryArrayAdapter(getContext(), requestList);
         historyList.setAdapter(historyArray);
         historyList.setOnItemClickListener((AdapterView.OnItemClickListener) (parent, view, position, id) -> {
+
             RequestHistory selectedItem = (RequestHistory) parent.getItemAtPosition(position);
+
             final Dialog dialog = new Dialog(getContext());
+
             dialog.setContentView(R.layout.dialog);
             dialog.setTitle("Details");
+
             TextView dateView = (TextView) dialog.findViewById(R.id.dateView);
             dateView.setText("Datum: " + selectedItem.getTimestamp().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")));
+
             TextView baseCurrencyView = (TextView) dialog.findViewById(R.id.baseCurrencyView);
             baseCurrencyView.setText("Eigenwährung: " + selectedItem.getBaseAmount() + " " + selectedItem.getBaseCurrency());
+
             TextView foreignCurrencyView = (TextView) dialog.findViewById(R.id.foreignCurrencyView);
             foreignCurrencyView.setText("Fremdwährung: " + selectedItem.getForeignAmount() + " " + selectedItem.getForeignCurrency());
+
             TextView exchangeRateView = (TextView) dialog.findViewById(R.id.exchangeRateView);
             exchangeRateView.setText("Wechselkurs: " + selectedItem.getExchangeRate());
+
             Button deleteButton = (Button) dialog.findViewById(R.id.deleteButton);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,7 +1,5 @@
 package com.mkg_dhbw.xcalc.models;
 
-import java.util.List;
-
 public class OutputResult {
     private Currency foreignCurrency;
     private double foreignAmount;

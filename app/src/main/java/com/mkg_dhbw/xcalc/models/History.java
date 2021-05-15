@@ -3,7 +3,6 @@ package com.mkg_dhbw.xcalc.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -29,6 +28,7 @@ public class History {
 
     /**
      * Decodes a JSON String into a History object
+     *
      * @param encodedJson String - JSON
      */
     public static History decodeJSON(String encodedJson) throws JSONException {
@@ -59,7 +59,7 @@ public class History {
             JSONObject tmp = null;
             try {
                 tmp = rates.getJSONObject(date.format(formatter));
-            } catch (JSONException e){
+            } catch (JSONException e) {
 
             }
 

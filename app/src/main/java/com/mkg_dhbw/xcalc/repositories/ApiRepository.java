@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.mkg_dhbw.xcalc.models.Currency;
 import com.mkg_dhbw.xcalc.models.History;
-import com.mkg_dhbw.xcalc.models.HistoryRates;
 import com.mkg_dhbw.xcalc.models.LatestRates;
 
 import java.io.BufferedReader;

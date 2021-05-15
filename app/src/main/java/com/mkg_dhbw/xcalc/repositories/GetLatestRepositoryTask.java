@@ -7,6 +7,7 @@ import com.mkg_dhbw.xcalc.models.Currency;
 import com.mkg_dhbw.xcalc.models.LatestRates;
 
 public class GetLatestRepositoryTask extends AsyncTask<Currency, String, LatestRates> {
+
     @Override
     protected LatestRates doInBackground(Currency... currencies) {
         ApiRepository repo = new ApiRepository();
