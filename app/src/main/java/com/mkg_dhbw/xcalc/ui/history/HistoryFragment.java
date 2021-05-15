@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,6 +67,13 @@ public class HistoryFragment extends Fragment {
             foreignCurrencyView.setText("Fremdwährung: " + selectedItem.getForeignAmount() + " " + selectedItem.getForeignCurrency());
             TextView exchangeRateView = (TextView) dialog.findViewById(R.id.exchangeRateView);
             exchangeRateView.setText("Wechselkurs: " + selectedItem.getExchangeRate());
+            Button deleteButton = (Button) dialog.findViewById(R.id.deleteButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    repository.deleteEntry(id);
+                }
+            });
             dialog.show();
         });
 

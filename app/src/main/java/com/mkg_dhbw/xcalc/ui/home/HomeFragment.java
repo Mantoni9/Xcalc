@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment {
                 graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
                 graph.getGridLabelRenderer().setNumHorizontalLabels(5);
                 graph.getGridLabelRenderer().setNumVerticalLabels(4);
-                graph.getGridLabelRenderer().setVerticalAxisTitle(String.valueOf(selectedCurrency)+" / "+String.valueOf(baseCurrency));
+                graph.getGridLabelRenderer().setVerticalAxisTitle(selectedCurrency+" / "+baseCurrency);
                 graph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(8);
                 graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
                 graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
