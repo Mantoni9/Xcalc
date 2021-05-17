@@ -116,6 +116,13 @@ public class HomeFragment extends Fragment {
                 // Graphen
                 graph.removeAllSeries();
                 graph.addSeries(getChartData(selectedCurrency, foreignCurrency));
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(5);
+                graph.getGridLabelRenderer().setNumVerticalLabels(4);
+                graph.getGridLabelRenderer().setVerticalAxisTitle(foreignCurrency+" / "+selectedCurrency);
+                graph.getGridLabelRenderer().setHorizontalAxisTitleTextSize(8);
+                graph.getGridLabelRenderer().setHorizontalLabelsAngle(135);
+                graph.getGridLabelRenderer().setLabelHorizontalHeight(80);
 
             }
 
